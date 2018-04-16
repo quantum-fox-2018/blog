@@ -2,6 +2,7 @@ const Article = require('../models/article-model')
 
 module.exports = {
     create: (req, res) => {
+        console.log(req.body)
         Article.create({
             title: req.body.title,
             article_content: req.body.article_content,

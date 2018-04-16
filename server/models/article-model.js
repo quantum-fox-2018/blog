@@ -4,7 +4,9 @@ const Schema = mongoose.Schema
 const articleSchema = new Schema({
     title: String,
     article_content: String,
-    userId: String
+    userId: {
+        type: Schema.Types.ObjectId, ref: 'User'
+    }
 
 }, {
     timestamps: true

@@ -11,7 +11,7 @@ describe('READ ARTICLE', () => {
     it('should be return all article in collection', (done) => {
         chai.request(url)
         .get('/find')
-        .send({userId: '101'})
+        .send({userId: '5ad49157955faf61c86a5ab6'})
         .end((err, res) => {
             console.log(res.body)
             expect(res).to.have.status(200)
@@ -30,7 +30,7 @@ describe('CREATE ARTICLE', () => {
         .send({
             title: 'Belajar TDD Mocha Chai',
             article_content: 'Mari belajar TDD dengan Mocha Chai JS',
-            userId: '101'
+            userId: '5ad49157955faf61c86a5ab6'
         })
         .end((err, res) => {
             console.log('===MASUUUUK',res.body)
