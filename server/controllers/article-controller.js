@@ -40,4 +40,42 @@ module.exports = {
         })
     },
 
+    delete: (req, res) => {
+        console.log(req.params)
+        Article.findByIdAndRemove(req.params.id)
+        .then(response => {
+            res.status(200).json({
+                message: 'Delete Data Success',
+                data: response
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                message: 'Delete Data Error',
+                error: err
+            })
+        })
+    },
+
+    update: (req, res) => {
+        console.log('BODY===',req.body)
+        console.log('PARAMS===',req.params)
+        Article.findByIdAndUpdate(req.params.id, {
+            title: req.body.title,
+            article_content: req.body.article_content
+        })
+        .then(response => {
+            res.status(200).json({
+                message: 'Update Data Suucess',
+                data: response
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                message: 'Update Data Error',
+                error: err
+            })
+        })
+    }
+
 }
