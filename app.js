@@ -11,12 +11,12 @@ mongoose.connect(`mongodb://localhost/blog`)
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', function() {
-  console.log('Connected to database...')
+  // console.log('Connected to database...')
 })
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use(morgan('dev'))
+// app.use(morgan('dev'))
 
 app.use('/api/post', postRoute)
 
