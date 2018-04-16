@@ -3,7 +3,7 @@ const { findAll, add, update, remove } = require('../controllers/posts_controlle
 
 router.get('/find', findAll)
       .post('/add', add)
-      .put('/update', update)
-      .delete('/delete', remove)
+      .put('/update/:id', update)
+      .delete('/delete/:id', remove)
 
 module.exports = router
