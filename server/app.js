@@ -6,6 +6,7 @@ const dotenv = require('dotenv').config()
 const port = process.env.PORT || 3000
 
 const postRoute = require('./routers/posts')
+const userRoute = require('./routers/users')
 
 mongoose.connect(`mongodb://localhost/blog`)
 const db = mongoose.connection
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: false }))
 // app.use(morgan('dev'))
 
 app.use('/api/post', postRoute)
+app.use('/api/user', userRoute)
 
 // app.listen(port, function() {
 //   console.log('Listening on port', port)
