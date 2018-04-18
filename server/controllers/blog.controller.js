@@ -4,7 +4,8 @@ class Blog {
   static create(req,res){
     let obj = {
       title: req.body.title,
-      text: req.body.text
+      text: req.body.text,
+      description: req.body.description
     }
     blogSchema.create(obj)
     .then(user => {
@@ -56,7 +57,8 @@ class Blog {
     }
     blogSchema.find(target)
     .then(data => {
-      data.title = req.body.title || data.title,
+      data.title = req.body.title || data.title
+      data.description = req.body.description || data.description
       data.text = req.body.text || data.text
       data.save()
       .then(savedData=>{

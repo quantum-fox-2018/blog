@@ -6,6 +6,11 @@ const blogSchema = new Schema({
     type: String,
     default: 'Untitled'
   },
+  description: {
+    type: String,
+    required: [true,'must be filled'],
+    default: 'No Description'
+  },
   text: {
     type: String,
     default: 'None'
