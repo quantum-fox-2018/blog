@@ -25,6 +25,24 @@ describe('Article', () => {
     })
   })
 
+  describe('GET /article', () => {
+    it('successfully return an article', (done) => {
+      chai.request(app)
+        .get('/articles/5ad5cadc89bfa992e80d97c2')
+        .end((err, res) => {
+          expect(err).to.be.null
+          expect(res).to.have.status(200)
+          expect(res.body).to.be.an('Object')
+          expect(res.body).to.ownProperty('message')
+          expect(res.body).to.ownProperty('data')
+          expect(res.body.message).to.be.an('String')
+          expect(res.body.message).to.eql('success to access an article')
+          expect(res.body.data).to.be.an('Object')
+          done()
+        })
+    })
+  })
+
   describe('POST /articles', () => {
     it('successfully add article', (done) => {
       chai.request(app)

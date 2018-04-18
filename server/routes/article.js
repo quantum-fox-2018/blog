@@ -3,7 +3,8 @@ const router = express.Router()
 
 const articleController = require('../controllers/article')
 
-router.get('/', articleController.readArticle)
+router.get('/', articleController.readArticles)
+router.get('/:id', articleController.readArticle)
 router.post('/', articleController.createArticle)
 router.put('/:id', articleController.updateArticle)
 router.delete('/:id', articleController.deleteArticle)

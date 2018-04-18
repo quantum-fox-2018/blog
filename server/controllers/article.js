@@ -1,12 +1,24 @@
 const Article = require('../models/article')
 
 module.exports = {
-  readArticle: function (req, res) {
+  readArticles: function (req, res) {
     Article.find(function (err, articles) {
       if (err) return res.status(500).json({message: err.message})
 
       res.status(200).json({
         message: 'success to access article page',
+        data: articles
+      })
+    })
+  },
+
+  readArticle: function (req, res) {
+    let idArticle = req.params.id
+    Article.findById(idArticle, function (err, articles) {
+      if (err) return res.status(500).json({message: err.message})
+
+      res.status(200).json({
+        message: 'success to access an article',
         data: articles
       })
     })

@@ -10,8 +10,10 @@ describe('User', () => {
   describe('POST /users/signin', () => {
     it('successfully login', (done) => {
       chai.request(app)
-        .get('/users/signin')
-        .end((err, res) => {
+        .post('/users/signin')
+        .type('form')
+        .send({email: 'wikanyaa@gmail.com',password: 'wika2727'})
+        .end(function(err, res) {
           expect(err).to.be.null
           expect(res).to.have.status(200)
           expect(res.body).to.be.an('Object')

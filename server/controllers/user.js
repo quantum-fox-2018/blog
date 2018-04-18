@@ -24,11 +24,11 @@ module.exports = {
   },
 
   signin: function (req, res) {
-    let {username, password} = req.body
+    let {email, password} = req.body
 
-    User.findOne({username}, (err, user) => {
+    User.findOne({email}, (err, user) => {
       if(!user) {
-        res.status(404).json({message: 'Username is not found'})
+        res.status(404).json({message: 'Email is not found'})
       } else {
         if(!Hash.verify(password, user.password)) {
           res.status(404).json({message: 'Password is wrong'})
