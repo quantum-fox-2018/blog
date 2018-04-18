@@ -54,7 +54,7 @@ describe('test blog api', () => {
   describe('show all posted article', () => {
     it('should show all posted article', (done) => {
       chai.request(app)
-          .get('/api/post/find')
+          .get('/api/post/show')
           .end((err, res) => {
             expect(err).to.be.null
             expect(res).to.have.status(200)
