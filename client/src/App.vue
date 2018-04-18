@@ -95,6 +95,7 @@ export default {
           swal('Login success!', ``, 'success')
         })
         .catch(error => {
+          console.log(error)
           swal('Login failed!', 'Username/password invalid', 'error')
         })
     }

@@ -4,10 +4,9 @@ module.exports = {
   findAll: function (req, res) {
     Post.find()
     .then(response => {
-      console.log(response)
       res.status(200).send({
         message: 'Show all Post',
-        posts: response
+        data: response
       })
     })
     .catch(error => {
