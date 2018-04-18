@@ -21,7 +21,7 @@ module.exports = {
     const {title, content} = req.body
 
     let newPost = Post ({
-      title, content
+      title, content, image: req.imageURL
     })
 
     newPost.save()
@@ -46,7 +46,7 @@ module.exports = {
     Post.findByIdAndUpdate({
       _id: id
     }, {
-      title, content
+      title, content, image: req.imageURL
     })
     .then(response => {
       res.status(200).send({

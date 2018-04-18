@@ -3,7 +3,8 @@ const Schema = mongoose.Schema
 
 let postSchema = new Schema ({
   title: String,
-  content: String
+  content: String,
+  image: String
 },{
   timestamps: true
 })
