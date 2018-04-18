@@ -60,6 +60,13 @@ module.exports = {
 
   },
 
+  uploadImage: function (req, res) {
+    res.status(201).send({
+      message: 'Upload image success',
+      link: req.file.cloudStoragePublicUrl
+    })
+  },
+
   remove: function (req, res) {
     Post.findByIdAndRemove({
       _id: req.params.id
