@@ -8,7 +8,11 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "moment": "^2.22.1",
     "register-service-worker": "^1.0.0",
+    "sweetalert2": "^7.18.0",
+    "vee-validate": "^2.0.6",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
