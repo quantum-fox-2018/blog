@@ -21,4 +21,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+.btn{
+  color: #FF9E5E;
+  border-color: #FF9E5E;
+  margin: 5px;
+}
 </style>

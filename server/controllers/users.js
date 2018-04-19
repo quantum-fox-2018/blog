@@ -10,11 +10,13 @@ module.exports = {
     user.name = req.body.name
     user.email = req.body.email
     user.password = hash
+    const token = jwt.sign({email: user.email, _id: user._id}, process.env.SECRET)
     user.save()
     .then(data => {
       res.status(201).json({
         message: 'Register success',
-        data
+        data,
+        token
       })
     })
   },
@@ -28,6 +30,7 @@ module.exports = {
         if(check){
           res.status(200).json({
             message: 'Login success',
+            user,
             token
           })
         } else {
