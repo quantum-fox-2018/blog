@@ -4,9 +4,18 @@ import router from './router'
 
 import '@/assets/css/bootstrap.min.css'
 
+let token = localStorage.getItem('token')
+let bus = new Vue()
+
 Vue.config.productionTip = false
 Vue.prototype.$baseUrl = 'http://localhost:3000'
-Vue.prototype.$isLogin = false
+Vue.prototype.$bus = bus
+
+if (token) {
+  Vue.prototype.$isLogin = true
+} else {
+  Vue.prototype.$isLogin = false
+}
 
 new Vue({
   router,

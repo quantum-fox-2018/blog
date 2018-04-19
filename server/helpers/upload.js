@@ -33,7 +33,7 @@ const sendUploadToGCS = function(req, res, next){
         
         stream.on('finish', () => {
             req.file.cloudStorageObject = gcsfilename
-            file.move(`img/${req.file.cloudStorageObject}`)
+            // file.move(`img/${req.file.cloudStorageObject}`)
             file.makePublic().then(() => {
                 req.file.cloudStoragePublicUrl = getPublicUrl(gcsfilename)
                 next()

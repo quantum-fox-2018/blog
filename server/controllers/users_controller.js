@@ -47,7 +47,7 @@ module.exports = {
         } else {
           res.status(400).send({
             message: 'Login failed, wrong password',
-            error: error.message
+            error: error
           })
         }
       })
