@@ -32,27 +32,6 @@ export default new Vuex.Store({
     postArticle: function (state, payload) {
       state.listArticles.push(payload)
     },
-    logOut: function (state, payload) {
-      swal({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, Log me out!'
-      }).then((result) => {
-        if (result.value) {
-          swal(
-            'Log out!',
-            'Your have been logged out',
-            'success'
-          )
-          localStorage.clear()
-          location.reload()
-        }
-      })
-    },
     getQuote: function (state, payload) {
       state.quotes = payload
     }
@@ -83,7 +62,9 @@ export default new Vuex.Store({
           'Your article has been post!',
           'success'
         )
-        context.dispatch('showAllArticle')
+        context.commit('postArticle', response.data.newArticle)
+      }).catch(error => {
+        console.log(error)
       })
     },
     signUp: function (context, payload) {
@@ -112,6 +93,7 @@ export default new Vuex.Store({
       })
     },
     signIn: function (context, payload) {
+      console.log('masuk signin', payload)
       axios({
         method: 'post',
         url: 'http://localhost:3000/users/signin',
@@ -134,6 +116,27 @@ export default new Vuex.Store({
         console.log(error)
       })
     },
+    logOut: function (state, payload) {
+      swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Log me out!'
+      }).then((result) => {
+        if (result.value) {
+          swal(
+            'Log out!',
+            'Your have been logged out',
+            'success'
+          )
+          localStorage.clear()
+          location.reload()
+        }
+      })
+    },
     getQuote: function (context, payload) {
       axios({
         method: 'get',
@@ -141,6 +144,29 @@ export default new Vuex.Store({
       }).then(response => {
         console.log('quotes', response.data)
         context.commit('getQuote', response.data.quote)
+      })
+    },
+    removeArticle: function (context, payload) {
+      axios({
+        method: 'delete',
+        url: 'http://localhost:3000/articles',
+        headers: {
+          token: context.state.activeUser.token,
+          userid: context.state.activeUser.userId
+        },
+        params: {
+          id: context.state.activeUser.userId
+        },
+        data: payload
+      }).then(response => {
+        swal(
+          'Remove Article success!',
+          'Your article has been removed!',
+          'success'
+        )
+        context.dispatch('showAllArticles')
+      }).catch(error => {
+        console.log(error)
       })
     }
   }

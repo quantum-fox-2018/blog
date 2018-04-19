@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-md-4">
       <div id="postbutton">
-        <button type="button" class="btn btn-primary btn-lg btn-block" @click="buttonPost">Post Article</button>
+        <button v-if="token !== ''" type="button" class="btn btn-primary btn-lg btn-block" @click="buttonPost">Post Article</button>
       </div>
       <div class="list-group" v-for="(article, i) in listArticles" :key="i">
         <router-link :to="{name: 'Detail', params: {id:article._id}}" class="list-group-item list-group-item-action list-group-item-secondary">{{article.title}}</router-link>
@@ -23,6 +23,9 @@ export default {
   computed: {
     listArticles: function () {
       return this.$store.getters.getAllArticles
+    },
+    token: function () {
+      return this.$store.getters.getActiveUser.token
     }
   },
   methods: {

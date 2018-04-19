@@ -6,6 +6,8 @@
         <h5 class="card-title">{{title}}</h5>
         <p class="card-text contentblog">{{content}}</p>
         <p class="card-text"><small class="text-muted">writer: {{author}}</small> - <small class="text-muted">{{dateCreate}}</small></p>
+        <button v-if="token !== ''" type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+        <button v-if="token !== ''" type="button" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></button>
       </div>
     </div>
   </div>
@@ -28,6 +30,9 @@ export default {
   computed: {
     listArticles: function () {
       return this.$store.getters.getAllArticles
+    },
+    token: function () {
+      return this.$store.getters.getActiveUser.token
     }
   },
   methods: {

@@ -17,10 +17,17 @@ module.exports = {
     .then(dataUser => {
       if(dataUser === null){
         User.create(input,(error, newUser) =>{
+          console.log('newuser==', newUser)
           if(!error){
+            let token = jwt.sign({id:newUser._id,email:newUser.email},secret)
             res.status(201).json({
               message: 'success adding new user',
-              newUser
+              data:{
+              id:newUser._id,
+              name:newUser.name,
+              email:newUser.email,
+              token :token
+            }
             })
           }else{
             res.status(400).json({
@@ -57,7 +64,6 @@ module.exports = {
               id:dataUser._id,
               name:dataUser.name,
               email:dataUser.email,
-              address: dataUser.address,
               token :token
             }
           })

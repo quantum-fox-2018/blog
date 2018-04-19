@@ -111,7 +111,9 @@ export default {
       this.$store.dispatch('signIn', this.objUser)
     },
     logOut: function () {
-      this.$store.commit('logOut')
+      this.$store.dispatch('logOut').then(() => {
+        this.$router.push({path: '/'})
+      })
     }
   },
   computed: {

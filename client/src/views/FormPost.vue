@@ -59,7 +59,8 @@ export default {
       formData.append('content', this.content)
       formData.append('image', this.image)
       this.$store.dispatch('postArticle', formData).then(() => {
-        this.$router.push({name: 'Home'})
+        this.$router.push({path: '/'})
+        location.reload()
       })
     },
     handleUpload: function (event) {
