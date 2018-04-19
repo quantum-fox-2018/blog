@@ -172,12 +172,13 @@ export default new Vuex.Store({
         url: `http://localhost:3000/articles/${payload._id}`,
         headers: {
           token: context.state.activeUser.token
-        }
+        },
+        data: payload
       }).then(response => {
         console.log(response)
         swal(
-          'Remove Article success!',
-          'Your article has been removed!',
+          'Edit Article success!',
+          'Your article has been updated!',
           'success'
         )
         context.dispatch('showAllArticles')

@@ -44,11 +44,12 @@ module.exports = {
     })
   },
   updateArticle: function (req, res) {
-    let id = req.params.id
+    let id = {_id:req.params.id}
     let input = {
       title: req.body.title,
       content: req.body.content
     }
+    console.log('input===',input)
     Article.findOneAndUpdate(id,input, (error) => {
       if(error) {
         res.status(400).json({

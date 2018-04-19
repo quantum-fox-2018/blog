@@ -24,7 +24,8 @@
           <input type="file" name="image" class="form-control-file" id="uploadImage" value="../assets/spongebob.jpg"
           accept="image/*" @change="handleUpload">
         </div>
-        <button type="button" class="btn btn-primary btn-block" @click="postArticle">Post</button>
+        <button v-if="input === true" type="button" class="btn btn-primary btn-block" @click="postArticle">Post</button>
+        <p v-else class="text-danger">All fields input must be filled!!</p>
     </form>
   </div>
 </div>
@@ -50,6 +51,13 @@ export default {
   computed: {
     quotes: function () {
       return this.$store.getters.getQuotes
+    },
+    input: function () {
+      if (this.title !== '' && this.content !== '' && this.image !== '') {
+        return true
+      } else {
+        return false
+      }
     }
   },
   methods: {
