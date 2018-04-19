@@ -1,10 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/signup">SignUp</router-link>
-    </div>
+    <NavBar></NavBar>
     <router-view/>
     <br>
     <Footer></Footer>
@@ -13,11 +9,13 @@
 
 <script>
 import Footer from './components/Footer.vue'
+import NavBar from './components/NavBar.vue'
 
 export default {
   name: 'app',
   components: {
-    Footer
+    Footer,
+    NavBar
   }
 }
 </script>
@@ -30,6 +28,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   font-size: 1.7vw;
+  padding-bottom: 30px;
 }
 #nav {
   padding: 30px;

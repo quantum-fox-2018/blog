@@ -1,14 +1,16 @@
 <template>
   <div class="home">
-    <h1>NEWSFEED</h1>
+    <h1>News Feed</h1>
     <div class="col">
+      <button v-on:click="createArticle">Create Article</button>
       <div class="row" v-for="article in articles" v-bind:key="article._id">
-        <h2>{{ article.title }}</h2>
-        <p>
-          <router-link :to="{ name: 'detailArticle', params: {id: article._id} }">detail</router-link>
-        </p>
+        <h2>
+          <router-link :to="{ name: 'detailArticle', params: {id: article._id} }">
+            <u>{{ article.title }}</u>
+          </router-link>
+        </h2>
         <p>{{ article.content }}</p>
-        <span>{{ article.createdAt }}</span>
+        <span>@{{ article.username }}</span> - <span>{{ article.createdAt }}</span>
       </div>
     </div>
   </div>
@@ -26,11 +28,26 @@ export default {
   created: function () {
     Axios.get('http://localhost:3000/articles')
       .then(res => {
-        this.articles = res.data.data
+        this.articles = res.data.data.reverse()
       })
       .catch(err => {
         console.log(err)
       })
+  },
+  computed: {
+    contentPreview: function () {
+      let preview = this.articles.content.split('').splice(10).push('...').join(' ')
+      return preview
+    }
+  },
+  methods: {
+    createArticle: function () {
+      if(localStorage.getItem('token')) {
+        this.$router.push('/create')
+      } else {
+        alert('Sign in?')
+      }
+    }
   }
 }
 </script>

@@ -113,9 +113,9 @@ export default {
           password: this.password
         })
           .then(response => {
-            alert('Signup success')
+            alert(`Sign Up success ${this.username}, lets blog!`)
+            localStorage.setItem('username', response.data.username)
             localStorage.setItem('token', response.data.token)
-
             this.$router.push('/')
           })
           .catch(error => {

@@ -82,10 +82,10 @@ export default {
           password: this.password
         })
           .then(response => {
-            alert('SignIn success')
+            alert(`welcome back ${response.data.username}, lets blog!`)
+            localStorage.setItem('username', response.data.username)
             localStorage.setItem('token', response.data.token)
-
-            this.$router.push('/')
+            location.reload('/')
           })
           .catch(error => {
             console.log(error.message)

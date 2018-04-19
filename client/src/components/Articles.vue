@@ -5,14 +5,14 @@
       <div class="row" v-for="article in articles" v-bind:key="article._id">
         <h2>{{ article.title }}</h2>
         <p>{{ article.content }}</p>
-        <span>{{ article.createdAt }}</span>
+        <span>@{{ article.username }}</span> - <span>{{ article.createdAt }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Axios from 'axios'
+import axios from 'axios'
 
 export default {
   data () {
@@ -21,7 +21,7 @@ export default {
     }
   },
   created: function () {
-    Axios.get('http://localhost:3000/articles')
+    axios.get('http://localhost:3000/articles')
       .then(res => {
         this.articles = res.data.data
       })
