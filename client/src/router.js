@@ -29,7 +29,8 @@ export default new Router({
         if (store.state.activeUser.token !== '') {
           next()
         } else {
-          next({path: '/'})
+          // next({path: '/'})
+          this.$router.push('/')
         }
       }
     }

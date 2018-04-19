@@ -8,7 +8,6 @@ module.exports={
     let token = req.headers.token
     if(token){
       try{
-      
         let decoded = jwt.verify(token, secret)
         next()
       }

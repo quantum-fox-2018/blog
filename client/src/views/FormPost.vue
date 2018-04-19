@@ -21,7 +21,7 @@
       <hr>
        <div class="form-group">
           <label for="exampleFormControlFile1">Image:</label>
-          <input type="file" name="image" class="form-control-file" id="uploadImage"
+          <input type="file" name="image" class="form-control-file" id="uploadImage" value="../assets/spongebob.jpg"
           accept="image/*" @change="handleUpload">
         </div>
         <button type="button" class="btn btn-primary btn-block" @click="postArticle">Post</button>
@@ -58,12 +58,14 @@ export default {
       formData.append('title', this.title)
       formData.append('content', this.content)
       formData.append('image', this.image)
+      console.log('formdat===', formData)
       this.$store.dispatch('postArticle', formData).then(() => {
         this.$router.push({path: '/'})
         location.reload()
       })
     },
     handleUpload: function (event) {
+      console.log('handle image==', event.target.files[0])
       this.image = event.target.files[0]
     }
   }

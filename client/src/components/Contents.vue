@@ -5,6 +5,7 @@
       <div id="postbutton">
         <button v-if="token !== ''" type="button" class="btn btn-primary btn-lg btn-block" @click="buttonPost">Post Article</button>
       </div>
+      <h2>List Articles</h2>
       <div class="list-group" v-for="(article, i) in listArticles" :key="i">
         <router-link :to="{name: 'Detail', params: {id:article._id}}" class="list-group-item list-group-item-action list-group-item-secondary">{{article.title}}</router-link>
       </div>

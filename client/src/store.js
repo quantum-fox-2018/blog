@@ -52,8 +52,7 @@ export default new Vuex.Store({
         method: 'post',
         url: 'http://localhost:3000/articles',
         headers: {
-          token: context.state.activeUser.token,
-          userid: context.state.activeUser.userId
+          token: context.state.activeUser.token
         },
         data: payload
       }).then(response => {
@@ -147,18 +146,35 @@ export default new Vuex.Store({
       })
     },
     removeArticle: function (context, payload) {
+      console.log('payload remove==', payload)
       axios({
         method: 'delete',
-        url: 'http://localhost:3000/articles',
+        url: `http://localhost:3000/articles/${payload._id}`,
         headers: {
-          token: context.state.activeUser.token,
-          userid: context.state.activeUser.userId
-        },
-        params: {
-          id: context.state.activeUser.userId
-        },
-        data: payload
+          token: context.state.activeUser.token
+        }
       }).then(response => {
+        console.log(response)
+        swal(
+          'Remove Article success!',
+          'Your article has been removed!',
+          'success'
+        )
+        context.dispatch('showAllArticles')
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    updateArticle: function (context, payload) {
+      console.log('id article update==', payload)
+      axios({
+        method: 'put',
+        url: `http://localhost:3000/articles/${payload._id}`,
+        headers: {
+          token: context.state.activeUser.token
+        }
+      }).then(response => {
+        console.log(response)
         swal(
           'Remove Article success!',
           'Your article has been removed!',
