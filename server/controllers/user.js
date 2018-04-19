@@ -14,6 +14,7 @@ module.exports = {
 
       res.status(201).json({
         message: 'success to create an user',
+        username: username,
         token: Token.generate({
           id: newUser._id,
           username: newUser.username,
@@ -35,6 +36,7 @@ module.exports = {
         } else {
           res.status(200).json({
             message: 'success login',
+            username: user.username,
             token: Token.generate({
               id: user._id,
               username: user.username,
@@ -61,7 +63,7 @@ module.exports = {
     let idUser = req.params.id
     let updateUser = req.body
 
-    User.findById(idUser, updateUser, function (err) {
+    User.findByIdAndUpdate(idUser, updateUser, function (err) {
       if (err) return res.status(500).json({message: err.message})
 
       res.status(200).json({

@@ -10,6 +10,9 @@ const articleSchema = new Schema ({
   content: {
     type: String
   },
+  username: {
+    type: String
+  }
 })
 //plugin
 articleSchema.plugin(timestamps)

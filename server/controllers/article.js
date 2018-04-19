@@ -9,7 +9,7 @@ module.exports = {
         message: 'success to access article page',
         data: articles
       })
-    })
+    }).populate('users')
   },
 
   readArticle: function (req, res) {
@@ -25,9 +25,9 @@ module.exports = {
   },
 
   createArticle: function (req, res) {
-    let {title, content} = req.body
+    let {title, content, username} = req.body
     let newArticle = new Article ({
-      title, content
+      title, content, username
     })
 
     newArticle.save(function (err) {
@@ -44,7 +44,7 @@ module.exports = {
     let idArticle = req.params.id
     let updateArticle = req.body
 
-    Article.findById(idArticle, updateArticle, function (err) {
+    Article.findByIdAndUpdate(idArticle, updateArticle, function (err) {
       if (err) return res.status(500).json({message: err.message})
 
       res.status(200).json({
