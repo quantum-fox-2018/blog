@@ -1,69 +1,17 @@
 <template>
   <div id="app">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light py-2 px-5">
-      <a class="navbar-brand" href="#">Barestu.</a>
+    <NavBar></NavBar>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link"><router-link to="/">HOME</router-link> <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"><router-link to="/about">ABOUT</router-link> </a>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModalCenter">
-              LOGIN
-            </button>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Modal -->
-      <div class="modal modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Login As Author</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                  <input type="email" class="form-control" v-model="username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                </div>
-                <div class="form-group">
-                  <input type="password" class="form-control" v-model="password" id="exampleInputPassword1" placeholder="Password">
-                </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-outline-primary" @click="login" data-dismiss="modal">Login</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container">
-      <div class="row border my-3">
+    <div class="container mt-5">
+      <div class="row my-3">
         <!-- Content -->
         <div class="col-md-9 px-4">
-          <router-view/>
+          <router-view :posts="posts" />
         </div>
         <!-- Side Bar -->
         <div class="col-md-3 px-0">
-          <div class="border text-center" style="height: 100%;">
-            <h1>
-              Side bar
-            </h1>
-          </div>
+          <SideBar></SideBar>
         </div>
 
       </div>
@@ -72,32 +20,60 @@
 </template>
 
 <script>
-import axios from 'axios'
 import swal from 'sweetalert'
+import axios from 'axios'
+import NavBar from '@/components/NavBar.vue'
+import SideBar from '@/components/SideBar.vue'
 
 export default {
+  components: {
+    NavBar, SideBar
+  },
   data: function () {
     return {
-      isLogin: this.$isLogin,
-      username: '',
-      password: ''
+      posts: []
     }
   },
   methods: {
-    login: function () {
-      axios.post(`${this.$baseUrl}/api/user/signin`, {
-        username: this.username,
-        password: this.password
-      })
-        .then(response => {
-          localStorage.setItem('token', response.data.token)
-          this.$isLogin = true
-          swal('Login success!', ``, 'success')
+    showAllPost: function () {
+      this.posts = []
+
+      axios.get(`${this.$baseUrl}/api/post/show`)
+        .then((response) => {
+          response.data.data.reverse()
+          response.data.data.forEach(post => {
+            post.post_summary = post.post_content.split(' ').slice(0, 40)
+            post.post_summary = post.post_summary.join(' ')
+
+            this.posts.push(post)
+          })
         })
         .catch(error => {
-          swal('Login failed!', 'Username/password invalid', 'error')
+          console.log('get post failed', error)
         })
     }
+  },
+  created: function () {
+    this.showAllPost()
+  },
+  updated: function () {
+    this.$bus.$on('add_post', (data) => {
+      console.log('add post', data)
+      swal('Add new post success!', ``, 'success')
+      this.showAllPost()
+    })
+
+    this.$bus.$on('update_post', (postId) => {
+      console.log('update post', postId)
+      swal('Update post success!', ``, 'success')
+      this.showAllPost()
+    })
+
+    this.$bus.$on('delete_post', (postId) => {
+      console.log('delete post', postId)
+      swal('Delete post success!', ``, 'success')
+      this.showAllPost()
+    })
   }
 }
 </script>

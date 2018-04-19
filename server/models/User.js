@@ -6,7 +6,8 @@ const saltRounds = 10
 let userSchema = new Schema ({
   username: String,
   email: String,
-  password: String
+  password: String,
+  role: {type: String, default: 'user'}
 },{
   timestamps: true
 })

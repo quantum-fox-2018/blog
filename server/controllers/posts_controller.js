@@ -4,10 +4,27 @@ module.exports = {
   findAll: function (req, res) {
     Post.find()
     .then(response => {
-      console.log(response)
       res.status(200).send({
         message: 'Show all Post',
-        posts: response
+        data: response
+      })
+    })
+    .catch(error => {
+      res.status(400).send({
+        message: 'No result',
+        error: error.message
+      })
+    })
+  },
+
+  findOne: function (req, res) {
+    Post.findOne({
+      _id: req.params.id
+    })
+    .then(response => {
+      res.status(200).send({
+        message: 'Show post success',
+        data: response
       })
     })
     .catch(error => {
@@ -21,7 +38,8 @@ module.exports = {
   add: function (req, res) {
     let newPost = Post ({
       post_title: req.body.post_title,
-      post_content: req.body.post_content
+      post_content: req.body.post_content,
+      image_url: req.body.image_url
     })
 
     newPost.save()
@@ -59,6 +77,13 @@ module.exports = {
       })
     })
 
+  },
+
+  uploadImage: function (req, res) {
+    res.status(201).send({
+      message: 'Upload image success',
+      link: req.file.cloudStoragePublicUrl
+    })
   },
 
   remove: function (req, res) {
