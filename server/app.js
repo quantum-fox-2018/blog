@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const app = express()
 require('dotenv').config()
 
-mongoose.connect('mongodb://localhost:27017/bloggy', (err => {
+mongoose.connect(`mongodb://${process.env.dbuser}:${process.env.dbpass}@ds149309.mlab.com:49309/blogsy`, (err => {
   if(err){
     console.log('failed connect')
   } else {

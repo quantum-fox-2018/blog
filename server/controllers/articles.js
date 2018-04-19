@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 module.exports = {
   getAll (req, res) {
     Article.find()
+    .populate('author')
     .exec()
     .then(article => {
       res.status(200).json({
@@ -13,9 +14,9 @@ module.exports = {
     })
   },
   add (req, res) {
-    // const decoded = jwt.verify(req.headers.token, process.env.SECRET)
+    const decoded = jwt.verify(req.headers.token, process.env.SECRET)
     const article = new Article()
-    article.author = req.body._id
+    article.author = decoded._id
     article.title = req.body.title
     article.text = req.body.text
     article.save()
