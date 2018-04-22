@@ -1,6 +1,5 @@
 const blogSchema = require('../models/blog.model')
 
-
 class Blog {
   static create(req,res){
     let obj = {
@@ -80,20 +79,18 @@ class Blog {
   }
 
   static update(req,res){
-    let target = {
-      _id:req.params.id
-    }
-    blogSchema.find(target)
+    blogSchema.findById(req.params.id)
     .then(data => {
       data.title = req.body.title || data.title
       data.description = req.body.description || data.description
       data.text = req.body.text || data.text
-      data.image = req.file.cloudStoragePublicUrl || data.image
+      data.image = req.file.cloudStoragePublicUrl
       data.save()
       .then(savedData=>{
         res.status(200).json({
           message:'update success',
-          savedData
+          savedData,
+          id: req.params.id
         })
       })
       .catch(err=>{

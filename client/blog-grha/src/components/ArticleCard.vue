@@ -5,13 +5,16 @@
         <img class="card-img-top" :src="blog.image" alt="Card image cap">
       </div>
       <div class="card-body pt-0">
-      <h5>{{blog._id}}</h5>
       <h5 class="card-title">{{blog.title}}</h5>
       <p class="card-text">{{blog.description}}</p>
-      <button @click="editbind(blog._id)" class="btn btn-outline-success" data-toggle="modal" data-target="#editArticle"><strong>Update Blog</strong></button>
-      <EditForm style="margin-top:10px"  :id="id" ></EditForm>
+      <span v-show="loadingEdit" id="loading-edit">
+        <p> <strong>Please Wait Upload Edited Picture</strong> </p>
+        <icon name="sync" spin></icon>
+      </span>
+      <button @click="editbind(blog._id,blog.title,blog.description,blog.text)" class="btn btn-outline-success"><strong>Update Blog</strong></button>
+      <EditForm @close="close" v-show="isEdit" style="margin-top:10px"  :id="id" :title="title" :description="description" :text="text"></EditForm>
         <div class="row justify-content-center">
-          <button @click="deleteBlog(blog._id)" type="button" class="btn btn-primary" style="margin-top:10px;margin-left:10px"><strong>Delete</strong></button>
+          <button @click="deleteBlog(blog._id,blog.title,blog.description,blog.text)" type="button" class="btn btn-primary" style="margin-top:10px;margin-left:10px"><strong>Delete</strong></button>
           <button @click="read" type="button" class="btn btn-primary" style="margin-top:10px;margin-left:10px"><strong>View Article</strong></button>
         </div>
       </div>
@@ -29,7 +32,8 @@ export default {
       id: '',
       title: '',
       text: '',
-      description: ''
+      description: '',
+      isEdit: ''
     }
   },
   methods: {
@@ -42,14 +46,22 @@ export default {
       this.getOne(this.blog._id)
       this.$router.push(`/read/${this.blog._id}`)
     },
-    editbind (id) {
-      console.log(id)
+    editbind (id, title, description, text) {
       this.id = id
+      this.title = title
+      this.description = description
+      this.text = text
+      this.isEdit = !this.isEdit
+    },
+    close () {
+      this.isEdit = !this.isEdit
     }
   },
   computed: {
     ...mapGetters([
-      'articles'
+      'articles',
+      'loading',
+      'loadingEdit'
     ])
   },
   components: {
@@ -79,5 +91,8 @@ export default {
 .profile-card-5 p{
     font-size:14px;
     font-weight:300;
+}
+#loading-edit{
+  color:red
 }
 </style>

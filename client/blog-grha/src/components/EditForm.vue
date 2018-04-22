@@ -1,55 +1,38 @@
 <template>
   <div>
-    <div class="modal fade" id="editArticle" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Update Blog</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="#photo" class="col-form-label">Photo:</label>
-                <input type="file" class="form-control" id="photo" @change="takePhoto">
-              </div>
-              <div class="form-group">
-                <label for="#title" class="col-form-label">Title</label>
-                <input v-model="editId" type="text" class="form-control" id="title" placeholder="orang ganteng">
-              </div>
-              <div class="form-group">
-                <label for="#description" class="col-form-label">Description</label>
-                <input v-model="editDescription" type="text" class="form-control" id="description">
-              </div>
-              <div class="form-group">
-                <label for="#text" class="col-form-label">Text</label>
-                <textarea v-model="editText" class="form-control" id="text" placeholder="text here"></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button @click="editBlog" type="button" class="btn btn-primary">Update Blog</button>
-            <icon v-show="loading" name="sync" spin></icon>
-          </div>
-        </div>
+    <form>
+      <div class="form-group">
+        <label for="#photo" class="col-form-label">Photo:</label>
+        <input type="file" class="form-control" id="photo" @change="takePhoto">
       </div>
-    </div>
+      <div class="form-group">
+        <label for="#title" class="col-form-label">Title</label>
+        <input v-model="editTitle" type="text" class="form-control" id="title">
+      </div>
+      <div class="form-group">
+        <label for="#description" class="col-form-label">Description</label>
+        <input v-model="editDescription" type="text" class="form-control" id="description" :placeholder="description">
+      </div>
+      <div class="form-group">
+        <label for="#text" class="col-form-label">Text</label>
+        <textarea v-model="editText" class="form-control" id="text" placeholder="text here"></textarea>
+      </div>
+    </form>
+    <button @click="updateBlog" class="btn btn-outline-success"><strong>Update</strong></button>
+    <icon v-show="loading" name="sync" spin></icon>
   </div>
 </template>
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
 export default {
-  props: ['id'],
+  props: ['id', 'title', 'description', 'text'],
   data () {
     return {
-      editId: `${this.id}`,
-      editTitle: ``,
-      editDescription: ``,
-      editText: ``,
+      editId: this.id,
+      editTitle: this.title,
+      editDescription: this.description,
+      editText: this.text,
       file: null,
       formData: new FormData()
     }
@@ -59,13 +42,17 @@ export default {
       this.file = event.target.files[0]
       console.log(this.file)
     },
-    editBlog () {
-      console.log(this.blog)
+    updateBlog () {
       this.formData.set('image', this.file)
-      this.formData.set('title', this.title)
-      this.formData.set('description', this.description)
-      this.formData.set('text', this.text)
-      this.editBlog(this.formData, this.blog)
+      this.formData.set('title', this.editTitle)
+      this.formData.set('description', this.editDescription)
+      this.formData.set('text', this.editText)
+      let obj = {
+        id: this.id,
+        formData: this.formData
+      }
+      this.editBlog(obj)
+      this.$emit('close')
     },
     ...mapActions([
       'editBlog'

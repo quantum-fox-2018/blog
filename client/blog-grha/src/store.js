@@ -9,7 +9,8 @@ Vue.use(Vuex)
 const state = {
   articles: [],
   oneArticle: {},
-  loading: false
+  loading: false,
+  loadingEdit: false
 }
 
 const getters = {
@@ -21,6 +22,9 @@ const getters = {
   },
   loading: state => {
     return state.loading
+  },
+  loadingEdit: state => {
+    return state.loadingEdit
   }
 }
 
@@ -37,25 +41,21 @@ const actions = {
         console.log('fetch failed', err.message)
       })
   },
-  editBlog ({commit}, payload, payload2) {
-    console.log(payload)
-    console.log(payload2)
-    // state.loading = true
-    // axios.put(`${url}/blogs/${obj2}`, payload, {headers: {token: localStorage.getItem('token')}})
-    //   .then(response => {
-    //     console.log('edit', response)
-    //     swal(
-    //       'Edit Blog Success',
-    //       'congrats',
-    //       'success'
-    //     )
-    //     state.loading = false
-    //     // commit('editData', obj1)
-    //   })
-    //   .catch(err => {
-    //     console.log('error edit', err)
-    //     state.loading = false
-    //   })
+  editBlog ({commit}, payload) {
+    console.log('masuk edit blog')
+    console.log(payload.id)
+    console.log(payload.formData)
+    state.loadingEdit = true
+    axios.put(`${url}/blogs/${payload.id}`, payload.formData, {headers: {token: localStorage.getItem('token')}})
+      .then(response => {
+        console.log('edit', response.data.savedData)
+        state.loadingEdit = false
+        commit('editData', response.data.savedData)
+      })
+      .catch(err => {
+        console.log('error edit', err)
+        state.loadingEdit = false
+      })
   },
   writeBlog ({commit}, obj) {
     state.loading = true
@@ -132,7 +132,7 @@ const mutations = {
   },
   editData (state, payload) {
     console.log(payload)
-    let index = state.articles.findIndex(post => post._id === payload.id)
+    let index = state.articles.findIndex(blog => blog._id === payload.id)
     console.log(index)
     state.articles.splice(index, 1, payload)
   },
