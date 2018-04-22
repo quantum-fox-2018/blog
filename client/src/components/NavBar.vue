@@ -37,7 +37,7 @@
           </div>
           <div class="modal-body">
               <div class="form-group">
-                <input type="email" class="form-control" v-model="username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="email" class="form-control" v-model="username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
               </div>
               <div class="form-group">
                 <input type="password" class="form-control" v-model="password" id="exampleInputPassword1" placeholder="Password">
@@ -78,6 +78,7 @@ export default {
           this.username = ''
           this.password = ''
           swal('Login success!', ``, 'success')
+          window.location.href = '/'
         })
         .catch(error => {
           console.log(error)
@@ -99,6 +100,7 @@ export default {
               icon: 'success'
             })
             localStorage.removeItem('token')
+            window.location.href = '/'
             this.isLogin = false
           }
         })

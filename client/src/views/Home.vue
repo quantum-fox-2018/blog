@@ -3,7 +3,6 @@
     <div v-for="(post, index) in posts" :key="index">
       <BlogPost :post="post"></BlogPost>
     </div>
-
   </div>
 </template>
 
