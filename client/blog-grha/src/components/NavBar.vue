@@ -1,12 +1,8 @@
 <template>
   <nav class="navbar navbar-light bg-dark fixed-top">
   <a class="navbar-brand" id="navbartitle">Blog-Rha</a>
-  <span v-show="loadingEdit">
-    <p>Please Wait Upload Edited Picture</p>
-    <icon name="sync" spin></icon>
-  </span>
   <form class="form-inline">
-    <CreateArticle style="margin-right:10px"></CreateArticle>
+    <CreateArticle v-if="role === admin" style="margin-right:10px"></CreateArticle>
     <button class="btn btn-outline-success my-2 my-sm-0" @click="logout"><strong>Logout</strong></button>
   </form>
 </nav>
@@ -16,6 +12,11 @@
 import {mapGetters} from 'vuex'
 import CreateArticle from '@/components/CreateArticle'
 export default {
+  data () {
+    return {
+      role: localStorage.getItem('role')
+    }
+  },
   methods: {
     logout () {
       localStorage.clear()

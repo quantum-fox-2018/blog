@@ -11,10 +11,10 @@
         <p> <strong>Please Wait Upload Edited Picture</strong> </p>
         <icon name="sync" spin></icon>
       </span>
-      <button @click="editbind(blog._id,blog.title,blog.description,blog.text)" class="btn btn-outline-success"><strong>Update Blog</strong></button>
+      <button v-if="role === admin" @click="editbind(blog._id,blog.title,blog.description,blog.text)" class="btn btn-outline-success"><strong>Update Blog</strong></button>
       <EditForm @close="close" v-show="isEdit" style="margin-top:10px"  :id="id" :title="title" :description="description" :text="text"></EditForm>
         <div class="row justify-content-center">
-          <button @click="deleteBlog(blog._id,blog.title,blog.description,blog.text)" type="button" class="btn btn-primary" style="margin-top:10px;margin-left:10px"><strong>Delete</strong></button>
+          <button v-if="role === admin" @click="deleteBlog(blog._id,blog.title,blog.description,blog.text)" type="button" class="btn btn-primary" style="margin-top:10px;margin-left:10px"><strong>Delete</strong></button>
           <button @click="read" type="button" class="btn btn-primary" style="margin-top:10px;margin-left:10px"><strong>View Article</strong></button>
         </div>
       </div>
@@ -33,7 +33,8 @@ export default {
       title: '',
       text: '',
       description: '',
-      isEdit: ''
+      isEdit: '',
+      role: localStorage.getItem('role')
     }
   },
   methods: {
