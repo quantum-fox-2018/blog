@@ -16,8 +16,7 @@ module.exports = {
 
   adminAuth: function (req, res, next) {
     let token = req.headers.token
-    console.log('TOKEN', req.headers)
-    
+
     if (token) {
       let decoded = jwt.verify(token, secret)
 

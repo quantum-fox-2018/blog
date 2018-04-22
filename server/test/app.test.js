@@ -55,25 +55,6 @@ describe('TEST BLOG API ', () => {
     })
   })
 
-  describe('show all posted article', () => {
-    it('should show all posted article', (done) => {
-      chai.request(app)
-          .get('/api/post/show')
-          .end((err, res) => {
-            expect(err).to.be.null
-            expect(res).to.have.status(200)
-            expect(res.body).to.ownProperty('message').to.equal('Show all Post')
-            expect(res.body).to.ownProperty('data').to.be.an('array')
-            expect(res.body.data[0]).to.ownProperty('_id').to.be.a('string')
-            expect(res.body.data[0]).to.ownProperty('post_title').to.be.a('string')
-            expect(res.body.data[0]).to.ownProperty('post_content').to.be.a('string')
-            expect(res.body.data[0]).to.ownProperty('createdAt').to.be.a('string')
-            expect(res.body.data[0]).to.ownProperty('updatedAt').to.be.a('string')
-            done()
-          })
-    })
-  })
-
   describe('post new article', () => {
     it('should show posted article (signed in)', (done) => {
       chai.request(app)
@@ -94,6 +75,25 @@ describe('TEST BLOG API ', () => {
             expect(res.body.data).to.ownProperty('post_content').to.be.a('string')
             expect(res.body.data).to.ownProperty('createdAt').to.be.a('string')
             expect(res.body.data).to.ownProperty('updatedAt').to.be.a('string')
+            done()
+          })
+    })
+  })
+
+  describe('show all posted article', () => {
+    it('should show all posted article', (done) => {
+      chai.request(app)
+          .get('/api/post/show')
+          .end((err, res) => {
+            expect(err).to.be.null
+            expect(res).to.have.status(200)
+            expect(res.body).to.ownProperty('message').to.equal('Show all Post')
+            expect(res.body).to.ownProperty('data').to.be.an('array')
+            expect(res.body.data[0]).to.ownProperty('_id').to.be.a('string')
+            expect(res.body.data[0]).to.ownProperty('post_title').to.be.a('string')
+            expect(res.body.data[0]).to.ownProperty('post_content').to.be.a('string')
+            expect(res.body.data[0]).to.ownProperty('createdAt').to.be.a('string')
+            expect(res.body.data[0]).to.ownProperty('updatedAt').to.be.a('string')
             done()
           })
     })

@@ -54,7 +54,6 @@ module.exports = {
       })
     })
     .catch(error => {
-      console.log('HERE', error)
       res.status(400).send({
         message: 'Login failed, wrong username',
         error: error.message
