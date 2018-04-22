@@ -28,6 +28,7 @@ module.exports = {
   },
 
   signin: function (req, res) {
+    
     User.findOne({
       username: req.body.username
     })
@@ -39,7 +40,7 @@ module.exports = {
             email: user.email,
             role: user.role
           }, secret)
-
+          
           res.status(200).send({
             message: 'Login success',
             token: token
@@ -53,6 +54,7 @@ module.exports = {
       })
     })
     .catch(error => {
+      console.log('HERE', error)
       res.status(400).send({
         message: 'Login failed, wrong username',
         error: error.message

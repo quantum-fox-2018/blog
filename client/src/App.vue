@@ -11,7 +11,7 @@
         </div>
         <!-- Side Bar -->
         <div class="col-md-3 px-0">
-          <SideBar></SideBar>
+          <SideBar :posts="posts"></SideBar>
         </div>
 
       </div>
@@ -58,19 +58,22 @@ export default {
   },
   updated: function () {
     this.$bus.$on('add_post', (data) => {
-      console.log('add post', data)
       swal('Add new post success!', ``, 'success')
       this.showAllPost()
     })
 
     this.$bus.$on('update_post', (postId) => {
-      console.log('update post', postId)
       swal('Update post success!', ``, 'success')
-      this.showAllPost()
+        .then(success => {
+          if (success) {
+            window.location.href = '/'
+          } else {
+            this.showAllPost()
+          }
+        })
     })
 
     this.$bus.$on('delete_post', (postId) => {
-      console.log('delete post', postId)
       swal('Delete post success!', ``, 'success')
       this.showAllPost()
     })

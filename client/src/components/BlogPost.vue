@@ -2,7 +2,7 @@
   <div class="blog-posts py-3">
     <h2>
       {{ post.post_title }}
-      <a href="#" class="px-1" v-if="isLogin" data-toggle="modal" data-target="#ModalUpdate">
+      <a href="#" class="px-1" v-if="isLogin" data-toggle="modal" :data-target="targetUpdate">
         <span class="fa fa-pencil"></span>
       </a>
       <a href="#" class="px-1" v-if="isLogin" @click.prevent="deletePost">
@@ -17,7 +17,7 @@
     </p>
 
     <!-- Modal -->
-    <div class="modal modal fade" id="ModalUpdate" tabindex="-1" role="dialog" aria-labelledby="ModalUpdate" aria-hidden="true">
+    <div class="modal modal fade" :id="idUpdate" tabindex="-1" role="dialog" aria-labelledby="ModalUpdate" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -46,8 +46,8 @@
                 </div>
               </div>
               <div class="form-group text-center my-3">
-                <button type="button" class="btn btn-outline-secondary mx-1" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-outline-primary mx-1">Submit</button>
+                <button class="btn btn-outline-secondary mx-1" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-outline-primary mx-1">Submit</button>
               </div>
             </form>
           </div>
@@ -63,9 +63,11 @@ import axios from 'axios'
 
 export default {
   name: 'blog-post',
-  props: ['post'],
+  props: ['post', 'index'],
   data: function () {
     return {
+      targetUpdate: `#modal${this.post._id}`,
+      idUpdate: `modal${this.post._id}`,
       isLogin: this.$isLogin,
       formData: new FormData(),
       updateForm: {
@@ -77,11 +79,9 @@ export default {
     }
   },
   methods: {
-    updatePost: function () {
+    updatePost () {
       let token = localStorage.getItem('token')
       let files = event.target.elements.image_url.files
-
-      console.log('length', files.length)
 
       if (files.length !== 0) {
         this.onFileChange(event)

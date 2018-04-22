@@ -8,8 +8,8 @@
 
     <div class="border px-5"></div>
 
-    <div class="add-post m-3">
-      <button type="button" class="btn btn-outline-success" v-if="isLogin" data-toggle="modal" data-target="#ModalCenter">
+    <div class="add-post m-5">
+      <button type="button" class="btn btn-outline-success" v-if="$isLogin" data-toggle="modal" data-target="#ModalCenter">
         WRITE BLOG
       </button>
 
@@ -53,6 +53,17 @@
       </div>
 
     </div>
+
+    <div class="border px-5"></div>
+    <div class="recent-post m-3">
+      <h2>RECENT POST</h2>
+      <router-link to="/">Home</router-link>
+      <router-link :to="{ name: 'post-details', params: { id: post._id } }" v-for="(post, index) in posts" :key="index">
+        <div>
+          {{ post.post_title }}
+        </div>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -63,6 +74,9 @@ import profileImage from '@/assets/img/profile_image.png'
 
 export default {
   name: 'side-bar',
+  props: [
+    'posts'
+  ],
   data: function () {
     return {
       isLogin: this.$isLogin,
@@ -95,6 +109,9 @@ export default {
           })
             .then(response => {
               this.$bus.$emit('add_post', response.data)
+              this.newPost.post_title = ''
+              this.newPost.post_content = ''
+              this.newPost.image_url = ''
             })
             .catch(error => {
               console.log('error add post', error.message)
