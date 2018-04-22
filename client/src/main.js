@@ -8,7 +8,7 @@ let token = localStorage.getItem('token')
 let bus = new Vue()
 
 Vue.config.productionTip = false
-Vue.prototype.$baseUrl = 'http://localhost:3000'
+Vue.prototype.$baseUrl = 'http://35.187.243.55'
 Vue.prototype.$bus = bus
 
 if (token) {
