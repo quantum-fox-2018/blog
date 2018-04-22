@@ -28,8 +28,8 @@ app.use(morgan('dev'))
 app.use('/api/post', postRoute)
 app.use('/api/user', userRoute)
 
-// app.listen(port, function() {
-//   console.log('Listening on port', port)
-// })
+app.listen(port, function() {
+  console.log('Listening on port', port)
+})
 
 module.exports = app
