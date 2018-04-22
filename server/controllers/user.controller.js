@@ -6,13 +6,13 @@ const jwt = require('jsonwebtoken')
 class User {
   static read(req,res){
     userSchema.find()
-    .then(users=>{
+    .then(users => {
       res.status(200).json({
         message:'list of users:',
         users
       })
     })
-    .catch(err =>{
+    .catch(err => {
       res.status(500).json({
         message:'something went wrong',
         err

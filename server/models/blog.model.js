@@ -8,12 +8,15 @@ const blogSchema = new Schema({
   },
   description: {
     type: String,
-    required: [true,'must be filled'],
     default: 'No Description'
   },
   text: {
     type: String,
     default: 'None'
+  },
+  image: {
+    type: String,
+    default: 'http://www.reflectinglife.org/assets/images/noimg.jpg'
   }
 },{
   timestamps: true

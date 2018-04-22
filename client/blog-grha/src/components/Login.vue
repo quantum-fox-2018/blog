@@ -1,5 +1,5 @@
 <template>
-  <div class="body">
+  <div class="bodyposter">
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Login</button>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">Register</button>
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
