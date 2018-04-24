@@ -4,8 +4,12 @@ const cors = require('cors')
 const app = express()
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/blog_db');
 require('dotenv').config()
+
+const usermongo = process.env.USERMONGO
+const passmongo = process.env.PASSMONGO
+
+mongoose.connect(`mongodb://${usermongo}:${passmongo}@ds229415.mlab.com:29415/my-blog`);
 
 app.use(cors())
 app.use(express.json())
