@@ -1,6 +1,7 @@
 <template>
   <div class="about">
     <h1>{{ msg }}</h1>
+    <img src="@/assets/logo.jpg">
     <p>
       with vue-cli, Semantic UI
     </p>
@@ -32,5 +33,9 @@ li {
 }
 a {
   color: #42b983;
+}
+img {
+  max-width: 25vw;
+  max-height: 25vh;
 }
 </style>

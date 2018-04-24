@@ -84,7 +84,7 @@ export default {
     },
     signup: function () {
       if (this.errEmail === '' && this.errPassword === '' && this.errConfirm === '' && this.email !== '' && this.password !== '' && this.confirmpassword !== '' && this.username !== '') {
-        axios.post('http://localhost:3000/users/signup', {
+        axios.post('http://35.187.254.68/users/signup', {
           username: this.username,
           email: this.email,
           password: this.password

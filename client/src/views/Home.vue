@@ -50,7 +50,7 @@ export default {
     }
   },
   created: function () {
-    Axios.get('http://localhost:3000/articles')
+    Axios.get('http://35.187.254.68/articles')
       .then(res => {
         this.articles = res.data.data.reverse()
       })

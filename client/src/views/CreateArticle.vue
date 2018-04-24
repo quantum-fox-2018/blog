@@ -66,7 +66,7 @@ export default {
 
             axios({
               method: 'post',
-              url: 'http://localhost:3000/articles',
+              url: 'http://35.187.254.68/articles',
               data: this.formData,
               headers: {
                 token: token
