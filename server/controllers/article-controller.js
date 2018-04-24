@@ -23,9 +23,8 @@ module.exports = {
     },
 
     findAll: (req, res) => {
-        Article.find({
-            userId: req.body.userId
-        })
+        Article.find()
+        .populate('userId')
         .exec()
         .then(response => {
             res.status(200).json({
