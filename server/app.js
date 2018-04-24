@@ -8,6 +8,7 @@ const mongoose = require('mongoose')
 require('dotenv').load();
 
 mongoose.connect('mongodb://localhost:27017/blog2')
+// mongoose.connect('mongodb://blog2018:blog123@ds127139.mlab.com:27139/blog2018')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');

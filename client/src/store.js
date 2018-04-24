@@ -115,7 +115,7 @@ export default new Vuex.Store({
         console.log(error)
       })
     },
-    logOut: function (state, payload) {
+    logOut: function (context, payload) {
       swal({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -132,6 +132,9 @@ export default new Vuex.Store({
             'success'
           )
           localStorage.clear()
+          context.state.activeUser.token = ''
+          context.state.activeUser.name = ''
+          context.state.activeUser.userId = ''
           location.reload()
         }
       })
