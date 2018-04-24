@@ -4,7 +4,17 @@ const Schema = mongoose.Schema
 let postSchema = new Schema ({
   title: String,
   content: String,
-  image: String
+  image: String,
+  category: String,
+  comments: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+      },
+      comment: String
+    }
+  ]
 },{
   timestamps: true
 })
