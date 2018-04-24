@@ -40,7 +40,7 @@ export default new Vuex.Store({
     showAllArticles: function (context, payload) {
       axios({
         method: 'get',
-        url: 'http://localhost:3000/articles'
+        url: 'http://server-blog.haripermadi.com/articles'
       }).then(response => {
         context.commit('showAllArticles', response.data.listArticle)
       }).catch(error => {
@@ -50,7 +50,7 @@ export default new Vuex.Store({
     postArticle: function (context, payload) {
       axios({
         method: 'post',
-        url: 'http://localhost:3000/articles',
+        url: 'http://server-blog.haripermadi.com/articles',
         headers: {
           token: context.state.activeUser.token
         },
@@ -70,7 +70,7 @@ export default new Vuex.Store({
       console.log('signup payloda', payload)
       axios({
         method: 'post',
-        url: 'http://localhost:3000/users/signup',
+        url: 'http://server-blog.haripermadi.com/users/signup',
         data: {
           name: payload.name,
           email: payload.email,
@@ -95,7 +95,7 @@ export default new Vuex.Store({
       console.log('masuk signin', payload)
       axios({
         method: 'post',
-        url: 'http://localhost:3000/users/signin',
+        url: 'http://server-blog.haripermadi.com/users/signin',
         data: {
           email: payload.email,
           password: payload.password
@@ -152,7 +152,7 @@ export default new Vuex.Store({
       console.log('payload remove==', payload)
       axios({
         method: 'delete',
-        url: `http://localhost:3000/articles/${payload._id}`,
+        url: `http://server-blog.haripermadi.com/articles/${payload._id}`,
         headers: {
           token: context.state.activeUser.token
         }
@@ -172,7 +172,7 @@ export default new Vuex.Store({
       console.log('id article update==', payload)
       axios({
         method: 'put',
-        url: `http://localhost:3000/articles/${payload._id}`,
+        url: `http://server-blog.haripermadi.com/articles/${payload._id}`,
         headers: {
           token: context.state.activeUser.token
         },
