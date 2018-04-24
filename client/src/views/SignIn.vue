@@ -66,7 +66,7 @@ export default {
     },
     signin: function () {
       if (this.errEmail === '' && this.errPassword === '' && this.email !== '' && this.password !== '') {
-        axios.post('http://35.187.254.68/users/signin', {
+        axios.post('http://blog.server.wikasilo.com/users/signin', {
           email: this.email,
           password: this.password
         })

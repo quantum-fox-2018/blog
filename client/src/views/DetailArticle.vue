@@ -51,7 +51,7 @@ export default {
     }
   },
   created: function () {
-    axios.get('http://35.187.254.68/articles/' + this.id)
+    axios.get('http://blog.server.wikasilo.com/articles/' + this.id)
       .then(res => {
         this.title = res.data.data.title
         this.content = res.data.data.content
@@ -84,7 +84,7 @@ export default {
                 let token = localStorage.getItem('token')
                 axios({
                   method: 'delete',
-                  url: 'http://35.187.254.68/articles/' + this.id,
+                  url: 'http://blog.server.wikasilo.com/articles/' + this.id,
                   headers: {
                     token: token
                   }
@@ -147,7 +147,7 @@ export default {
           this.formData.set('username', this.username)
           axios({
             method: 'put',
-            url: 'http://35.187.254.68/articles/' + this.id,
+            url: 'http://blog.server.wikasilo.com/articles/' + this.id,
             data: this.formData,
             headers: {
               token: token

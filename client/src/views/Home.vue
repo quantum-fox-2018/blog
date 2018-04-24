@@ -50,7 +50,7 @@ export default {
     }
   },
   created: function () {
-    Axios.get('http://35.187.254.68/articles')
+    Axios.get('http://blog.server.wikasilo.com/articles')
       .then(res => {
         this.articles = res.data.data.reverse()
       })

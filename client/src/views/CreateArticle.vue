@@ -66,7 +66,7 @@ export default {
 
             axios({
               method: 'post',
-              url: 'http://35.187.254.68/articles',
+              url: 'http://blog.server.wikasilo.com/articles',
               data: this.formData,
               headers: {
                 token: token
