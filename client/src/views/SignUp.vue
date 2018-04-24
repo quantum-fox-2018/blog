@@ -1,55 +1,30 @@
 <template>
   <div>
-    <div class="container" style="margin: 0, center">
+    <div class="ui center aligned three column grid">
       <div class="row">
-        <div class="col">
-          <div class="jumbotron">
-            <h1>SignUp</h1>
-            <hr>
-              <span style="color: red"> {{errEmail}} </span>
-              <span style="color: red"> {{errPassword}} </span>
-              <span style="color: red"> {{errConfirm}} </span>
-              <br>
-              <br>
-              <table>
-                <tr>
-                  <td class="left">
-                    <label>Username</label>
-                  </td>
-                  <td>
-                    <input class="form-control" v-model="username">
-                  </td>
-                </tr>
-                <tr>
-                  <td class="left">
-                    <label>Email</label>
-                  </td>
-                  <td>
-                    <input class="form-control" v-model="email">
-                  </td>
-                </tr>
-                <tr>
-                  <td class="left">
-                    <label>Password</label>
-                  </td>
-                  <td>
-                    <input type="password" v-model="password">
-                  </td>
-                </tr>
-                <tr>
-                  <td class="left">
-                    <label>Confirm Password</label>
-                  </td>
-                  <td>
-                    <input type="password" v-model="confirmpassword">
-                  </td>
-                </tr>
-              </table>
-              <br>
-            <button type="button" v-on:click.prevent="signup">SignUp</button>
+        <div class="ui form">
+          <h1>Blognyaa</h1>
+          <img src="@/assets/logo.jpg">
+          <h3 style="margin: 0;">Sign Up</h3> <br>
+          <div class="ui error message">
+            <p>{{errEmail}}</p>
           </div>
-          <br>
-          <a href="#" v-on:click="tosignin">do you have account?</a>
+          <span style="color: red"> {{errEmail}} </span>
+          <span style="color: red"> {{errPassword}} </span>
+          <span style="color: red"> {{errConfirm}} </span>
+          <div class="field">
+            <label>Username</label>
+            <input class="form-control" v-model="username">
+            <label>Email</label>
+            <input class="form-control" v-model="email">
+            <label>Password</label>
+            <input type="password" v-model="password">
+            <label>Confirm Password</label>
+            <input type="password" v-model="confirmpassword" @keyup.enter="signup">
+            <button class="ui positive button" v-on:click="signup">Sign Up</button>
+            <br>
+            <a href="#" v-on:click="tosignin">do you have account?</a>
+          </div>
         </div>
       </div>
     </div>
@@ -58,6 +33,9 @@
 
 <script>
 import axios from 'axios'
+import swal from 'sweetalert2'
+// eslint-disable-next-line
+var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 export default {
   data () {
@@ -84,7 +62,6 @@ export default {
   },
   methods: {
     checkEmail: function () {
-      let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       if (!re.test(this.email) && this.email.length > 0) {
         this.errEmail = 'email is invalid'
       } else {
@@ -113,9 +90,14 @@ export default {
           password: this.password
         })
           .then(response => {
-            alert(`Sign Up success ${this.username}, lets blog!`)
+            swal({
+              title: 'welcome, lets blog!',
+              animation: false,
+              customClass: 'animated tada'
+            })
             localStorage.setItem('username', response.data.username)
             localStorage.setItem('token', response.data.token)
+            location.reload()
             this.$router.push('/')
           })
           .catch(error => {
@@ -131,27 +113,18 @@ export default {
 }
 </script>
 
-<style>
-table {
-  margin: 0 auto;
+<style scoped>
+.ui.form .field>label{
+  margin: 0.5em 0 0.5em 0;
 }
 
-input {
-  width: 250px;
-  height: 20px;
-  font-size: 1.7vw;
-}
-button {
-  font-size: 1.7vw;
+.ui.positive.button{
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-.left {
-  text-align: left;
-  padding-right: 10px;
-}
-.container {
-  margin-left: 200px;
-  margin-right: 200px;
-  padding-bottom: 15px;
+img {
+  max-width: 25vw;
+  max-height: 25vh;
 }
 </style>

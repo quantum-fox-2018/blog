@@ -14,20 +14,20 @@ module.exports = {
 
   readArticle: function (req, res) {
     let idArticle = req.params.id
-    Article.findById(idArticle, function (err, articles) {
+    Article.findById(idArticle, function (err, article) {
       if (err) return res.status(500).json({message: err.message})
 
       res.status(200).json({
         message: 'success to access an article',
-        data: articles
+        data: article
       })
     })
   },
 
   createArticle: function (req, res) {
-    let {title, content, username} = req.body
+    let {title, content, username, image} = req.body
     let newArticle = new Article ({
-      title, content, username
+      title, content, username, image: req.imageURL
     })
 
     newArticle.save(function (err) {
@@ -42,7 +42,18 @@ module.exports = {
 
   updateArticle: function (req, res) {
     let idArticle = req.params.id
-    let updateArticle = req.body
+    let updateArticle;
+
+    let {title, content, username, image} = req.body
+    if (!image) {
+      updateArticle = {
+        title, content, username, image: req.imageURL
+      }
+    } else {
+      updateArticle = {
+        title, content, username
+      }
+    }
 
     Article.findByIdAndUpdate(idArticle, updateArticle, function (err) {
       if (err) return res.status(500).json({message: err.message})

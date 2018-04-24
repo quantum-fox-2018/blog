@@ -1,6 +1,10 @@
 <template>
   <footer>
-    <h3>copyright - wika(hacktiv8)</h3>
+    <div class="ui vertical footer segment form-page">
+      <div class="ui container">
+        copyright - wika(hacktiv8)
+      </div>
+    </div>
   </footer>
 </template>
 

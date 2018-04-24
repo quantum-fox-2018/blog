@@ -1,16 +1,40 @@
 <template>
   <div class="home">
     <h1>News Feed</h1>
-    <div class="col">
-      <button v-on:click="createArticle">Create Article</button>
-      <div class="row" v-for="article in articles" v-bind:key="article._id">
-        <h2>
-          <router-link :to="{ name: 'detailArticle', params: {id: article._id} }">
-            <u>{{ article.title }}</u>
-          </router-link>
-        </h2>
-        <p>{{ article.content }}</p>
-        <span>@{{ article.username }}</span> - <span>{{ article.createdAt }}</span>
+    <button class="ui button" v-on:click="createArticle">Create Article</button>
+    <div class="ui grid container">
+      <div class="ui link cards" v-for="article in articles" v-bind:key="article._id" style="margin: 0">
+        <div class="card">
+          <div class="image">
+            <img v-bind:src="article.image">
+          </div>
+          <div class="content">
+            <div class="header">
+              <router-link :to="{ name: 'detailArticle', params: {id: article._id} }">
+                {{ article.title }}
+              </router-link>
+            </div>
+            <div class="description">
+              {{ article.content.split(' ').splice(0,10).join(' ') }} ...
+            </div>
+          </div>
+          <div class="content">
+            <span class="right floated">
+              <i class="heart outline like icon"></i>
+              0 likes
+            </span>
+            <i class="comment icon"></i> 0 comments
+          </div>
+          <div class="extra content">
+            <span class="right floated">
+              {{ article.createdAt.split('').splice(0,10).join('') }}
+            </span>
+            <span>
+              <i class="user icon"></i>
+              @{{ article.username }}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -31,18 +55,12 @@ export default {
         this.articles = res.data.data.reverse()
       })
       .catch(err => {
-        console.log(err)
+        alert(err)
       })
-  },
-  computed: {
-    contentPreview: function () {
-      let preview = this.articles.content.split('').splice(10).push('...').join(' ')
-      return preview
-    }
   },
   methods: {
     createArticle: function () {
-      if(localStorage.getItem('token')) {
+      if (localStorage.getItem('token')) {
         this.$router.push('/create')
       } else {
         alert('Sign in?')
@@ -52,25 +70,18 @@ export default {
 }
 </script>
 
-<style scoped>
-.col {
-  margin-left: 100px;
-  margin-right: 100px;
+<style>
+.ui.grid {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
-.row {
-  margin-left: 50px;
-  margin-right: 50px;
-  border-bottom: 1px solid silver;
-  padding-bottom: 15px;
+.ui.grid.container {
+  justify-content: center;
+  align-items: center;
 }
-
-.row:first-child {
-  border-top: 1px solid silver;
+.ui.img {
+  max-width: 30%;
+  align-items: center;
 }
-
-.row:last-child {
-  border-bottom: 0px solid silver;
-}
-
 </style>

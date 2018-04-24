@@ -27,11 +27,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  font-size: 1.7vw;
-  padding-bottom: 30px;
-}
-#nav {
-  padding: 30px;
+  padding-bottom: 5vw;
 }
 
 #nav a {
@@ -39,7 +35,17 @@ export default {
   color: #2c3e50;
 }
 
+#nav {
+  padding-bottom: 20px;
+  margin-top: 20px;
+}
+
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+body{
+  background: #FCF6EB;
+  padding-top: 40px;
 }
 </style>

@@ -12,6 +12,10 @@ const articleSchema = new Schema ({
   },
   username: {
     type: String
+  },
+  image: {
+    type: String,
+    default: ''
   }
 })
 //plugin

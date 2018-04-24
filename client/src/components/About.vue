@@ -2,7 +2,7 @@
   <div class="about">
     <h1>{{ msg }}</h1>
     <p>
-      with vue-cli
+      with vue-cli, Semantic UI
     </p>
     <h3>Hacktiv8 Portofolio - Blog</h3>
   </div>
