@@ -86,13 +86,31 @@ module.exports = {
     })
   },
   update: (req, res) => {
-    const {id} = req.params
-    const {title, content, category} = req.body
-
+    const {id, title, content, category} = req.body
     Post.findByIdAndUpdate({
       _id: id
     }, {
-      title, content, image: req.imageURL, category
+      title, content, category, image: req.imageURL
+    })
+    .then(response => {
+      res.status(200).send({
+        message: 'Update post success',
+        data: response
+      })
+    })
+    .catch(err => {
+      res.status(400).send({
+        message: 'Update post failed',
+        err: err.message
+      })
+    })
+  },
+  updateNoImage: (req, res) => {
+    const {id, title, content, category} = req.body
+    Post.findByIdAndUpdate({
+      _id: id
+    }, {
+      title, content, category
     })
     .then(response => {
       res.status(200).send({
