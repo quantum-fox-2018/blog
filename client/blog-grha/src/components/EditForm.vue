@@ -19,7 +19,6 @@
       </div>
     </form>
     <button @click="updateBlog" class="btn btn-outline-success"><strong>Update</strong></button>
-    <icon v-show="loading" name="sync" spin></icon>
   </div>
 </template>
 
