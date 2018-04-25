@@ -1,4 +1,6 @@
 <template>
+<div>
+  <div class="jumbotron jumbotron-fluid"></div>
   <div class="home container">
     <div class="row">
       <ul class="col-md-3 list-group">
@@ -9,6 +11,7 @@
       <router-view></router-view>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -44,5 +47,10 @@ export default {
   background-color: #FF9E5E;
   border-color: #FF9E5E;
   color: white;
+}
+.jumbotron{
+  height: 15rem;
+  background: url(../../public/img/banner.jpg);
+  background-size: cover;
 }
 </style>

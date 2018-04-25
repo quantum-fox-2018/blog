@@ -59,6 +59,8 @@ export default {
           this.text = data.text
           if (data.author._id === localStorage.getItem('id')) {
             this.isAuthor = true
+          } else {
+            this.isAuthor = false
           }
         }
       })
