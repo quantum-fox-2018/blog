@@ -23,7 +23,29 @@ module.exports = {
     },
 
     findAll: (req, res) => {
+        console.log('=REQ======',req.body)
         Article.find()
+        .populate('userId')
+        .exec()
+        .then(response => {
+            res.status(200).json({
+                message: 'Get Data Success',
+                data: response
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                message: 'Get Data Error',
+                error: err
+            })
+        })
+    },
+
+    findByUser: (req, res) => {
+        console.log('=REQ PRAMS======',req.params)
+        Article.find({
+            userId: req.params.id
+        })
         .populate('userId')
         .exec()
         .then(response => {
