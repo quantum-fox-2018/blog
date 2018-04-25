@@ -1,6 +1,6 @@
 const userSchema = require('../models/user.model')
-const bcrypt = require('bcrypt')
-const salt = bcrypt.genSaltSync(10)
+const bcryptjs = require('bcryptjs')
+const salt = bcryptjs.genSaltSync(10)
 const jwt = require('jsonwebtoken')
 
 class User {
@@ -21,7 +21,7 @@ class User {
   }
   
   static signup(req,res){
-    let password = bcrypt.hashSync(req.body.password,salt)
+    let password = bcryptjs.hashSync(req.body.password,salt)
     let obj = {
       email:req.body.email,
       password: password,
@@ -43,7 +43,7 @@ class User {
   }
 
   static createAdmin(req,res){
-    let password = bcrypt.hashSync(req.body.password,salt)
+    let password = bcryptjs.hashSync(req.body.password,salt)
     let obj = {
       email:req.body.email,
       password: password,
@@ -65,7 +65,7 @@ class User {
   }
 
   static update(req,res){
-    let password = bcrypt.hashSync(req.body.password,salt)
+    let password = bcryptjs.hashSync(req.body.password,salt)
     let target = {
       _id:req.params.id
     }
@@ -122,7 +122,7 @@ class User {
     userSchema.findOne(target)
     .then(user=>{
       if(user){
-        let clarify = bcrypt.compareSync(password,user.password)
+        let clarify = bcryptjs.compareSync(password,user.password)
         if(clarify){
           let payload = {
             _id:user._id,
