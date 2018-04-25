@@ -12,8 +12,14 @@ var blogsRouter = require('./routes/blog')
 
 var app = express();
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/blogrha');
-
+mongoose.connect('mongodb://agrha:daun10lembar@ds227469.mlab.com:27469/blog-masku', (err) => {
+  if (!err) {
+    console.log('connect to Database');
+  }
+  else {
+    throw new Error(err)
+  }
+});
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
